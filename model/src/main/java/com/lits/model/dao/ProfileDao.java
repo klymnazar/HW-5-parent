@@ -70,14 +70,14 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile create(String name, String lastName, int age) {
+    public Profile create(Profile profile) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("INSERT INTO profile (`name`, `last_name`, `age`) " +
                     "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, name);
-            ps.setString(2, lastName);
-            ps.setInt(3, age);
+            ps.setString(1, profile.getName());
+            ps.setString(2, profile.getLastName());
+            ps.setInt(3, profile.getAge());
 
             int r = ps.executeUpdate();
             if (r > 0) {
@@ -105,18 +105,18 @@ public class ProfileDao {
         return profile;
     }
 
-    public Profile update(int id, String name, String lastName, int age) {
+    public Profile update(Profile profile) {
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement("UPDATE profile SET name = ?, last_name = ?, age = ? WHERE id = ?");
 
-            ps.setString(1, name);
-            ps.setString(2, lastName);
-            ps.setInt(3, age);
-            ps.setInt(4, id);
+            ps.setString(1, profile.getName());
+            ps.setString(2, profile.getLastName());
+            ps.setInt(3, profile.getAge());
+            ps.setInt(4, profile.getId());
 
             ps.executeUpdate();
-            profile = findById(id);
+            profile = findById(profile.getId());
 
         } catch (SQLException e) {
             e.printStackTrace();

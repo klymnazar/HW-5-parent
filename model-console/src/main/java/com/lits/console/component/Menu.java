@@ -82,36 +82,49 @@ public class Menu {
     public void findAll() {
         profileService.findAll().forEach(profileDTO -> {
             printProfile(profileDTO);
+            System.out.println("---------------");
         });
     }
 
     public void findById() {
         profileDTO = profileService.findById(scanInt("Enter id: "));
         printProfile(profileDTO);
+        System.out.println("---------------");
     }
 
     public void createProfile() {
         name = scanStr("Enter name: ");
         lastName = scanStr("Enter last_name: ");
         age = scanInt("Enter age: ");
-        profileDTO = profileService.create(name, lastName, age);
+        profileDTO = profileService.create(new ProfileDTO(name, lastName, age));
+        System.out.println("---------------");
         printProfile(profileDTO);
 
         System.out.println("created");
+        System.out.println("---------------");
     }
 
     public void updateProfile() {
         id = scanInt("Enter id: ");
         profileDTO = profileService.findById(id);
         printProfile(profileDTO);
+        System.out.println("---------------");
 
         name = scanStr("Enter new name: ");
         lastName = scanStr("Enter new last_name: ");
         age = scanInt("Enter new age: ");
-        profileDTO = profileService.update(id, name, lastName, age);
-        printProfile(profileDTO);
 
+        ProfileDTO updProfileDTO = new ProfileDTO();
+        updProfileDTO.setId(id);
+        updProfileDTO.setName(name);
+        updProfileDTO.setLastName(lastName);
+        updProfileDTO.setAge(age);
+        profileDTO = profileService.update(updProfileDTO);
+        System.out.println("---------------");
+
+        printProfile(profileDTO);
         System.out.println("updated");
+        System.out.println("---------------");
     }
 
     public void deleteProfile() {
@@ -121,6 +134,7 @@ public class Menu {
 
         profileService.delete(id);
         System.out.println("Profile deleted");
+        System.out.println("---------------");
     }
 
     public void exit() {

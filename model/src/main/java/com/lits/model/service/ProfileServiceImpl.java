@@ -23,12 +23,21 @@ public class ProfileServiceImpl implements ProfileService {
         return profileToDTO(repo.findById(id));
     }
 
-    public ProfileDTO create(String name, String lastName, int age) {
-        return profileToDTO(repo.create(name, lastName, age));
+    public ProfileDTO create(ProfileDTO profileDTO) {
+        Profile profile = new Profile();
+        profile.setName(profileDTO.getName());
+        profile.setLastName(profileDTO.getLastName());
+        profile.setAge(profileDTO.getAge());
+        return profileToDTO(repo.create(profile));
     }
 
-    public ProfileDTO update(int id, String name, String lastName, int age) {
-        return profileToDTO(repo.update(id, name, lastName, age));
+    public ProfileDTO update(ProfileDTO profileDTO) {
+        Profile profile = new Profile();
+        profile.setId(profileDTO.getId());
+        profile.setName(profileDTO.getName());
+        profile.setLastName(profileDTO.getLastName());
+        profile.setAge(profileDTO.getAge());
+        return profileToDTO(repo.update(profile));
     }
 
     public void delete(int id) {

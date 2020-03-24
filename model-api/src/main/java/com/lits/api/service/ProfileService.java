@@ -7,8 +7,12 @@ import java.util.List;
 public interface ProfileService {
 
     List<ProfileDTO> findAll();
+
     ProfileDTO findById(int id);
-    ProfileDTO create(String name, String lastName, int age);
-    ProfileDTO update(int id, String name, String lastName, int age);
+
+    ProfileDTO create(ProfileDTO profileDTO);
+
+    ProfileDTO update(ProfileDTO profileDTO);
+
     void delete(int id);
 }
