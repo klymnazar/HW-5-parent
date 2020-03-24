@@ -31,53 +31,27 @@ public class Menu {
 
         switch (command) {
             case 1:
-                profileService.findAll().forEach(profileDTO -> {
-                    printProfile(profileDTO);
-                });
+                findAll();
                 break;
 
             case 2:
-                profileDTO = profileService.findById(scanInt("Enter id: "));
-
-                printProfile(profileDTO);
+                findById();
                 break;
 
             case 3:
-                name = scanStr("Enter name: ");
-                lastName = scanStr("Enter last_name: ");
-                age = scanInt("Enter age: ");
-                profileDTO = profileService.create(name, lastName, age);
-                printProfile(profileDTO);
-
-                System.out.println("created");
+                createProfile();
                 break;
 
             case 4:
-                id = scanInt("Enter id: ");
-                profileDTO = profileService.findById(id);
-                printProfile(profileDTO);
-
-                name = scanStr("Enter new name: ");
-                lastName = scanStr("Enter new last_name: ");
-                age = scanInt("Enter new age: ");
-                profileDTO = profileService.update(id, name, lastName, age);
-                printProfile(profileDTO);
-
-                System.out.println("updated");
+                updateProfile();
                 break;
 
             case 5:
-                id = scanInt("Enter id: ");
-                profileDTO = profileService.findById(id);
-                printProfile(profileDTO);
-
-                profileService.delete(id);
-                System.out.println("Profile deleted");
+                deleteProfile();
                 break;
 
             case 6:
-                System.out.println("Exit...");
-                System.exit(0);
+                exit();
                 break;
 
             default:
@@ -85,14 +59,14 @@ public class Menu {
         }
     }
 
-    public int scanInt(String textInConsol) {
-        System.out.print(textInConsol);
+    public int scanInt(String textInConsole) {
+        System.out.print(textInConsole);
         Scanner scan = new Scanner(System.in);
         return scan.nextInt();
     }
 
-    public String scanStr(String textInConsol) {
-        System.out.print(textInConsol);
+    public String scanStr(String textInConsole) {
+        System.out.print(textInConsole);
         Scanner scan = new Scanner(System.in);
         return scan.next();
     }
@@ -104,4 +78,54 @@ public class Menu {
         System.out.println("LastName = " + profileDTO.getLastName());
         System.out.println("Age = " + profileDTO.getAge());
     }
+
+    public void findAll() {
+        profileService.findAll().forEach(profileDTO -> {
+            printProfile(profileDTO);
+        });
+    }
+
+    public void findById() {
+        profileDTO = profileService.findById(scanInt("Enter id: "));
+        printProfile(profileDTO);
+    }
+
+    public void createProfile() {
+        name = scanStr("Enter name: ");
+        lastName = scanStr("Enter last_name: ");
+        age = scanInt("Enter age: ");
+        profileDTO = profileService.create(name, lastName, age);
+        printProfile(profileDTO);
+
+        System.out.println("created");
+    }
+
+    public void updateProfile() {
+        id = scanInt("Enter id: ");
+        profileDTO = profileService.findById(id);
+        printProfile(profileDTO);
+
+        name = scanStr("Enter new name: ");
+        lastName = scanStr("Enter new last_name: ");
+        age = scanInt("Enter new age: ");
+        profileDTO = profileService.update(id, name, lastName, age);
+        printProfile(profileDTO);
+
+        System.out.println("updated");
+    }
+
+    public void deleteProfile() {
+        id = scanInt("Enter id: ");
+        profileDTO = profileService.findById(id);
+        printProfile(profileDTO);
+
+        profileService.delete(id);
+        System.out.println("Profile deleted");
+    }
+
+    public void exit() {
+        System.out.println("Exit...");
+        System.exit(0);
+    }
+
 }
