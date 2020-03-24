@@ -1,0 +1,7 @@
+/model/target/
+/model-api/target/
+/model-console/target/
+/.settings
+*.classpass
+*.project
+.idea/*
